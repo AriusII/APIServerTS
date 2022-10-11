@@ -1,21 +1,36 @@
+// Init pre-base
 import dotenv from 'dotenv'
 dotenv.config()
-import express, { Request, Response } from 'express'
-import { Client, initToken } from '@ariusii/intersect.ts'
-import cors from 'cors'
 import https from 'https'
 import fs from 'fs'
+import path from 'path'
+import {fileURLToPath} from 'url'
+let __filename = fileURLToPath(import.meta.url)
+let __dirname = path.dirname(__filename)
+
+// Init base
+import cors from 'cors'
+import express from 'express'
+
+// init intersect package
+import { Client, initToken } from '@ariusii/intersect.ts'
+
+const token = await initToken("http://127.0.0.1", <string>process.env.PORT, <string>process.env.USERNAME, <string>process.env.PASSWORD)
+console.log(token)
+const client = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 840000)
+
 
 //Get express and set it to app
-const app = express();
+const app = express()
+
+// setup cors
+app.use(cors())
 
 // parse requests of content-type - application/json
-app.use(express.json({ limit: '25mb' }));
+app.use(express.json({ limit: '25mb' }))
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true, limit: '25mb' }));
-
-app.use(cors());
+app.use(express.urlencoded({ extended: true, limit: '25mb' }))
 
 //Getting Routes
 //import routes here
@@ -25,6 +40,4 @@ https.createServer({
     cert: fs.readFileSync(`${__dirname}/ssl/cert.crt`),
     key: fs.readFileSync(`${__dirname}/ssl/cert.key`),
     ca: fs.readFileSync(`${__dirname}/ssl/ca.crt`),
-}, app).listen(443, () => {
-    console.log(`Server started on port 443`);
-})
+}, app).listen(443, () => { console.log(`Server started on port 443`) })
