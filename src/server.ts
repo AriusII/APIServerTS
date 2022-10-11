@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import express, { Request, Response } from 'express'
+import { Client, initToken } from '@ariusii/intersect.ts'
 import cors from 'cors'
 import https from 'https'
 import fs from 'fs'
@@ -18,7 +19,6 @@ app.use(cors());
 
 //Getting Routes
 //import routes here
-
 
 //Start server on prod
 https.createServer({
