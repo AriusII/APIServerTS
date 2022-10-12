@@ -1,5 +1,6 @@
 /*
  * GET home page.
+ * Copy file.
  */
 import express from 'express'
 const router = express.Router();

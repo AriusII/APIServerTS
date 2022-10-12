@@ -15,12 +15,7 @@ import express from 'express'
 // init intersect package
 import { Client, initToken } from '@ariusii/intersect.ts'
 
-const token = await initToken(
-  'http://127.0.0.1',
-  <string>process.env.PORT,
-  <string>process.env.USER,
-  <string>process.env.PASSWORD
-)
+const token = await initToken('http://127.0.0.1', <string>process.env.PORT, <string>process.env.USER, <string>process.env.PASSWORD)
 
 console.log(token)
 const client = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 840000)
@@ -42,14 +37,7 @@ app.use(express.urlencoded({ extended: true, limit: '25mb' }))
 //import routes here
 
 //Start server on prod
-https
-  .createServer(
-    {
-      cert: fs.readFileSync(`${__dirname}/ssl/localhost.pem`),
-      key: fs.readFileSync(`${__dirname}/ssl/localhost-key.pem`),
-    },
-    app
-  )
-  .listen(443, () => {
-    console.log(`Server started on port 443`)
-  })
+https.createServer({
+    cert: fs.readFileSync(`${__dirname}/ssl/localhost.pem`),
+    key: fs.readFileSync(`${__dirname}/ssl/localhost-key.pem`),
+},app).listen(443, () => { console.log(`Server started on port 443`)})
