@@ -1,11 +1,11 @@
 import express from 'express'
-let Chat = global.Client.Chat
+let Client = global.Client
 
 const rChat = express.Router();
 
 rChat.get('/', (req: express.Request, res: express.Response) => {
     res.send("Index of Chat");
-    console.log(Chat)
+    console.log(Client)
 });
 
 export default rChat;
