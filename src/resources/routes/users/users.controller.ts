@@ -1,11 +1,8 @@
 import express from 'express'
-let Client = global.Client
-
-const rUsers = express.Router();
+const rUsers = express.Router()
 
 rUsers.get('/', (req: express.Request, res: express.Response) => {
-    res.send("Index of Users");
-    console.log(Client)
-});
+    res.send("Index of Users")
+})
 
-export default rUsers;
+export default rUsers

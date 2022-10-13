@@ -1,11 +1,8 @@
 import express from 'express'
-let Client = global.Client
-
-const rGameObjects = express.Router();
+const rGameObjects = express.Router()
 
 rGameObjects.get('/', (req: express.Request, res: express.Response) => {
-    res.send("Index of GameObjects");
-    console.log(Client)
-});
+    res.send("Index of GameObjects")
+})
 
-export default rGameObjects;
+export default rGameObjects

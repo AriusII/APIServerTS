@@ -1,11 +1,8 @@
 import express from 'express'
-let Client = global.Client
-
-const rAuth = express.Router();
+const rAuth = express.Router()
 
 rAuth.get('/', (req: express.Request, res: express.Response) => {
-    res.send("Index of Auth");
-    console.log(Client)
-});
+    res.send("Index of Auth")
+})
 
-export default rAuth;
+export default rAuth

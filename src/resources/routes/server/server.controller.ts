@@ -1,11 +1,13 @@
 import express from 'express'
-let Client = global.Client
-
-const rServer = express.Router();
+const rServer = express.Router()
 
 rServer.get('/', (req: express.Request, res: express.Response) => {
-    res.send("Index of Server");
-    console.log(Client)
-});
+    res.send("Index of Server")
+})
 
-export default rServer;
+rServer.get('/stats', async (req: express.Request, res: express.Response) => {
+    let stats = await gClient.Server.getStats()
+    res.send(stats)
+})
+
+export default rServer

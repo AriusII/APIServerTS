@@ -16,12 +16,13 @@ import express from 'express'
 import { Client, initToken } from '@ariusii/intersect.ts'
 
 const token = await initToken('http://127.0.0.1', <string>process.env.PORT, <string>process.env.USER, <string>process.env.PASSWORD)
+const ieClient = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 840000)
 
 declare global {
-    var Client: Client
+    var gClient: Client
 }
 
-global.Client = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 840000)
+global.gClient = ieClient
 
 
 // Get express and set it to app

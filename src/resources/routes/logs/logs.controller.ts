@@ -1,11 +1,8 @@
 import express from 'express'
-let Client = global.Client
-
-const rLogs = express.Router();
+const rLogs = express.Router()
 
 rLogs.get('/', (req: express.Request, res: express.Response) => {
-    res.send("Index of Logs");
-    console.log(Client)
-});
+    res.send("Index of Logs")
+})
 
-export default rLogs;
+export default rLogs
