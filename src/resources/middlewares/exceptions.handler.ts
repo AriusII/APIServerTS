@@ -1,36 +1,32 @@
 import { NextFunction, Request, Response } from 'express'
 
 /**
- * Middleware de gestion globale des erreurs
+ * Middleware of global error management
  *
- * @param err - L'erreur Express (peut être la notre ou une autre)
- * @param req - La requête initiale
- * @param res - L'objet de réponse
- * @param next - Permet de passer au middleware suivant si existant
+ * @param err - Express error (can be ours or another)
+ * @param req - The initial request
+ * @param res - The response object
+ * @param next - Allows to pass to the next middleware if existing
  *
  * @see https://expressjs.com/en/guide/error-handling.html
  */
 export const ExceptionsHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   /**
-   * Voir "The default error handler" dans la doc officielle indiquée plus haut
+   * See "The default error handler" in the official documentation
    */
   if (res.headersSent) {
     return next(err)
   }
 
   /**
-   * Si c'est le cas, on sait que c'est notre propre erreur
+   * If it's the case, we know it's our error
    */
   if (err.status && err.error) {
-    return res
-      .status(err.status)
-      .json({ error: err.error })
+    return res.status(err.status).json({ error: err.error })
   }
 
   /**
-   * Dans les autres cas, on retourne une 500
+   * In other case, we return a error 500
    */
-  return res
-    .status(500)
-    .json({ error: 'Erreur interne' })
+  return res.status(500).json({ error: 'Intern Error' })
 }

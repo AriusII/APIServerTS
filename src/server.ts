@@ -16,7 +16,7 @@ import express from 'express'
 import { Client, initToken } from '@ariusii/intersect.ts'
 
 const token = await initToken('http://127.0.0.1', <string>process.env.PORT, <string>process.env.USER, <string>process.env.PASSWORD)
-const ieClient = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 840000)
+const ieClient = new Client("http://127.0.0.1", <string>process.env.PORT, token.access_token, token.refresh_token, 000)
 
 declare global {
     var gClient: Client
@@ -28,13 +28,13 @@ global.gClient = ieClient
 // Get express and set it to app
 const app = express()
 
-// const corsOptions = {
-//  origin: "*",
-//  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
+const corsOptions = {
+    origin: "*",
+    optionsSuccessStatus: 200
+}
 
 // setup cors
-app.use(cors())
+app.use(cors(corsOptions))
 
 // parse requests of content-type - application/json
 app.use(express.json({ limit: '25mb' }))
@@ -43,15 +43,15 @@ app.use(express.json({ limit: '25mb' }))
 app.use(express.urlencoded({ extended: true, limit: '25mb' }))
 
 //Getting Routes || import routes here
-import rAdmin from './resources/routes/admin/admin.controller.js'
-import rAuth from './resources/routes/auth/auth.controller.js'
-import rChat from './resources/routes/chat/chat.controller.js'
-import rGameObjects from './resources/routes/gameobjects/gameobjects.controller.js'
-import rLogs from './resources/routes/logs/logs.controller.js'
-import rPlayers from './resources/routes/players/players.controller.js'
-import rServer from './resources/routes/server/server.controller.js'
-import rUsers from './resources/routes/users/users.controller.js'
-import rVariables from './resources/routes/variables/variables.controller.js'
+import rAdmin from './resources/routes/admin/admin.router.js'
+import rAuth from './resources/routes/auth/auth.router.js'
+import rChat from './resources/routes/chat/chat.router.js'
+import rGameObjects from './resources/routes/gameobjects/gameobjects.router.js'
+import rLogs from './resources/routes/logs/logs.router.js'
+import rPlayers from './resources/routes/players/players.router.js'
+import rServer from './resources/routes/server/server.router.js'
+import rUsers from './resources/routes/users/users.router.js'
+import rVariables from './resources/routes/variables/variables.router.js'
 
 //Use Routes here
 app.use('/admin', rAdmin)
